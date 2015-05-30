@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dojo Ember</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <script type="text/x-handlebars">
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="dropdown">{{#link-to 'index'}}Inicio{{/link-to}}</li>
+        <li role="presentation" class="dropdown">{{#link-to 'create'}}Crear{{/link-to}}</li>
+      </ul>
+      <div class="panel panel-primary">
+        {{outlet}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="index">
+    <div class="panel-heading">{{title}}</div>
+    <div class="panel-body">
+      {{#if users}}
+      <table class="table">
+        <thead>
+          <th>Usuario</th>
+          <th>Nombre</th>
+          <th>Acción</th>
+        </thead>
+        <tbody>
+          {{#each user in users}}
+          <tr>
+            <td>{{user.username}}</td>
+            <td>{{user.name}}</td>
+            <td><button class="form-control" {{action 'delete' user}}>Eliminar</button></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{else}}
+      <p>No hay usuarios registrados</p>
+      {{/if}}
+    </div>
+  </script>
+
+
+  <script type="text/x-handlebars" id="create">
+    <div class="panel-heading">
+      {{title}}
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+          <form {{action "create" on="submit"}}>
+            {{input class="form-control" value=model.name placeholder="Nombre" required="true"}}
+            <br>
+            {{input class="form-control" value=model.username placeholder="Usuario" required="true"}}
+            <br>
+            {{input class="form-control" value=model.password type="password" placeholder="Contraseña" required="true"}}
+            <br>
+            {{input class="form-control"  type="submit" value="Crear Usuario"}}
+          </form>
+        </div>
+        <div class="col-lg-4"></div>
+      </div>
+    </div>
+  </script>
+
+  <script src="js/libs/jquery.js"></script>
+  <script src="js/libs/ember-handlebars.js"></script>
+  <script src="js/libs/ember.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
